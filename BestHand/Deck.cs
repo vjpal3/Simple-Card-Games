@@ -10,19 +10,17 @@ namespace BestHand
     {
         public List<Card> Cards = new List<Card>();
 
-        private IEnumerable<Card> shuffledCards;
-        private static string[] suits = new string[4] { "heart", "spade", "club", "diamond" };
-        private static string[] values = new string[13] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        
+        public string[] Suits = new string[] { "heart", "spade", "club", "diamond" };
+        public string[] Values = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 
         public Deck()
         {
-            int k = 0;
-            for (int i = 0; i < suits.Length; i++)
+            for (int i = 0; i < Suits.Length; i++)
             {
-                for (int j = 0; j < values.Length; j++)
+                for (int j = 0; j < Values.Length; j++)
                 {
-                    Cards[k] = new Card(suits[i], values[j]);
-                    k++;
+                    Cards.Add(new Card(Suits[i], Values[j]));
                 }
             }
         }

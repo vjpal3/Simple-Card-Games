@@ -10,6 +10,10 @@ namespace BestHand
     {
         static void Main(string[] args)
         {
+            Random rand = new Random();
+            var deck = new Deck();
+            deck.Shuffle(rand);
+            deck.ShowDeck();
         }
     }
 }
