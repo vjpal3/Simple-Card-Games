@@ -37,23 +37,6 @@ namespace BestHand
             }
         }
 
-        //Draw a card and remove it from the deck
-        public Card DrawCard(Random rand)
-        {
-            int min = 2;
-            int max = 15;
-
-            var randSuit = Suits[rand.Next(0, 4)];
-            var randVal = Values[rand.Next(min, max)];
-            var nextCard = Cards.Single(card => card.Suit == randSuit && card.Value == randVal);
-
-            
-            Cards.Remove(nextCard);
-
-            foreach (Card card in Cards)
-                Console.WriteLine(card.Value + " ** " + card.Suit);
-
-            return nextCard;
-        }
+        
     }
 }
