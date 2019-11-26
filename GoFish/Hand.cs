@@ -11,11 +11,12 @@ namespace GoFish
     {
         public List<Card> Cards = new List<Card>();
         public int Points { get; set; }
-        public int InitialNumber { get; set; }
+        public string Name { get; set; }
 
-        public Hand(int numOfCards, Deck deck)
+
+        public Hand(int numOfCards, string name, Deck deck)
         {
-           
+            Name = name;
             for(int i = 0; i < numOfCards; i++)
             {
                 Cards.Add(deck.Cards[i]);
@@ -47,14 +48,14 @@ namespace GoFish
         //Draw a card and remove it from the deck
         public Card DrawCardFromDeck(Random rand, Deck deck)
         {
-            int min = 2;
-            int max = 15;
+            //int min = 2;
+            //int max = 15;
 
-            var randSuit = deck.Suits[rand.Next(0, 4)];
-            var randVal = deck.Values[rand.Next(min, max)];
-            var nextCard = deck.Cards.Single(card => card.Suit == randSuit && card.Value == randVal);
+            //var randSuit = deck.Suits[rand.Next(0, 4)];
+            //var randVal = deck.Values[rand.Next(min, max)];
+            //var nextCard = deck.Cards.Single(card => card.Suit == randSuit && card.Value == randVal);
 
-
+            var nextCard = deck.Cards[0];
             deck.Cards.Remove(nextCard);
 
             //foreach (Card card in deck.Cards)
@@ -77,8 +78,9 @@ namespace GoFish
         {
             for (int i = 0; i < Cards.Count; i++)
             {
-                Console.WriteLine(Cards[i].Suit + " " + Cards[i].Value);
+                Console.Write(Cards[i].Suit + " " + Cards[i].Value + "\t");
             }
+            Console.WriteLine();
         }
     }
 

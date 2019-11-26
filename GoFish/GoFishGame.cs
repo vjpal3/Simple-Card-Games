@@ -9,83 +9,109 @@ namespace GoFish
 {
     class GoFishGame
     {
-        Hand hand1, hand2;
-        Deck deck;
-
+        public Hand Hand1 { get; set; }
+        public  Hand Hand2 { get; set; }
+        public Deck Deck { get; set; }
+        public bool Turn { get; set; }
+        
         public void StartGame()
         {
             var rand = new Random();
             SetUpEntities(rand);
-            PlayTurns(rand);
+            Turn = true;
             
-            
+            while (Hand1.Cards.Count > 0 || Hand2.Cards.Count > 0 || Deck.Cards.Count > 0)
+            {
+                if (Turn)
+                {
+                    PlayTurn(Hand1, Hand2, rand);
+                }
+                else
+                {
+                    PlayTurn(Hand2, Hand1, rand);
+                }
+            }
+
+            if(Hand1.Points == Hand2.Points)
+                Console.WriteLine("Tie!!");
+            else
+                Console.WriteLine("Winner is " + ((Hand1.Points > Hand2.Points) ? Hand1.Name : Hand2.Name));
+                    
         }
 
         public void SetUpEntities(Random rand)
         {
             
-            deck = new Deck();
-            deck.Shuffle(rand);
-            hand1 = new Hand(5, deck);
-            Console.WriteLine("******* Hand 1 Before: *******");
-            hand1.DisplayHand();
-            Console.WriteLine("******* Hand 1 After: *******");
-            hand1.MatchAndRemoveDuplicates();
-           
-            hand1.DisplayHand();
-            Console.WriteLine("******* Hand 2 Before: *******");
-            hand2 = new Hand(5, deck);
-            hand2.DisplayHand();
-            Console.WriteLine("******* Hand 2 After: *******");
-            hand2.MatchAndRemoveDuplicates();
-            hand2.DisplayHand();
-            Console.WriteLine();
+            Deck = new Deck();
+            Deck.Shuffle(rand);
+            Hand1 = new Hand(5, "Player1", Deck);
+            ShowHand(Hand1);
+            
+            Hand2 = new Hand(5, "Player2", Deck);
+            ShowHand(Hand2);
+
+        }
+
+        public void ShowHand(Hand hand)
+        {
+            Console.WriteLine($"******* {hand.Name} Before: *******");
+            hand.DisplayHand();
+            hand.MatchAndRemoveDuplicates();
+            Console.WriteLine($"******* {hand.Name} After: *******");
+            hand.DisplayHand();
+            Console.WriteLine($"Points gained by {hand.Name}: {hand.Points}");
             Console.WriteLine();
         }
 
-        public void PlayTurns(Random rand)
+        public void PlayTurn(Hand currentHand, Hand otherHand, Random rand)
         {
-            bool p1Turn = true;
-            while (hand1.Cards.Count > 0 || hand2.Cards.Count > 0)
-            {
-                if(p1Turn)
-                {
-                    Console.WriteLine("******* Hand 1 Now: *******");
-                    hand1.DisplayHand();
-                    Console.WriteLine("Ask Match for a Card: Specify the index: ");
-                    int index = Convert.ToInt32(Console.ReadLine());
-                    bool matchFound = false;
-                    for(int i = 0; i < hand2.Cards.Count; i++)
-                    {
-                        if(hand1.Cards[index].Value == hand2.Cards[i].Value)
-                        {
-                            Console.WriteLine("Match Found");
-                            hand2.Cards.Remove(hand2.Cards[i]);
-                            hand1.Cards.Remove(hand1.Cards[index]);
-                            hand1.Points++;
-                            matchFound = true;
-                            break;
-                        }
-                    }
-                    if (!matchFound)
-                    {
-                        Card card = hand1.DrawCardFromDeck(rand, deck);
-                        for (int i = 0; i < hand1.Cards.Count; i++)
-                        {
-                            if (card.Value == hand1.Cards[i].Value)
-                            {
-                                hand1.Points++;
-                                hand1.Cards.Remove(hand1.Cards[i]);
-                            }
-                        }
-                        p1Turn = false;
-                    }
+            Console.WriteLine($"******* {currentHand.Name} Now: *******");
+            currentHand.DisplayHand();
+            Console.WriteLine("Ask Match for a Card: Specify the index: ");
+            int index = Convert.ToInt32(Console.ReadLine());
 
+            bool matchFound = false;
+            for(int i = 0; i < otherHand.Cards.Count; i++)
+            {
+                if(currentHand.Cards[index].Value == otherHand.Cards[i].Value)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Match Found!");
+                    otherHand.Cards.Remove(otherHand.Cards[i]);
+                    currentHand.Cards.Remove(currentHand.Cards[index]);
+                    currentHand.Points++;
+                    Console.WriteLine($"Points gained by {currentHand.Name}: {currentHand.Points}");
+                    matchFound = true;
+                    break;
                 }
-                Console.WriteLine("******* Hand 1 Now: *******");
-                hand1.DisplayHand();
-                break;
             }
+            if (!matchFound)
+            {
+                Console.WriteLine("No Match Found. GoFish! Drawing a card from Deck...!");
+                Card card = currentHand.DrawCardFromDeck(rand, Deck);
+                Console.WriteLine("Card Drawn: " + card.Suit + " " + card.Value);
+                for (int i = 0; i < currentHand.Cards.Count; i++)
+                {
+                    if (card.Value == currentHand.Cards[i].Value)
+                    {
+                        Console.WriteLine();
+                        currentHand.Points++;
+                        Console.WriteLine($"Points gained by {currentHand.Name}: {currentHand.Points}");
+                        currentHand.Cards.Remove(currentHand.Cards[i]);
+                        matchFound = true;
+                        break;
+                    }
+                }
+                if (!matchFound)
+                    currentHand.Cards.Add(card);
+
+                Turn = !Turn;
+            }
+
+            Console.WriteLine($"******* {currentHand.Name} Now: *******");
+
+            currentHand.DisplayHand();
+            Console.WriteLine();
         }
     }
 }
