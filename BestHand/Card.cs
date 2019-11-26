@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BestHand
 {
-    class Card
+    public class Card
     {
         private string suit;
         private string value;

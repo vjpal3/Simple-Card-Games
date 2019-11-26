@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41158913-8BE9-4B06-8960-5D0844AD50DE}</ProjectGuid>
+    <ProjectGuid>{48B4BC96-F8D7-4F3F-9EA0-E89B69EC66BA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>BestHand</RootNamespace>
-    <AssemblyName>BestHand</AssemblyName>
+    <RootNamespace>GoFish</RootNamespace>
+    <AssemblyName>GoFish</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,15 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="Deck.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="GoFishGame.cs" />
+    <Compile Include="Hand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BestHand\BestHand.csproj">
+      <Project>{41158913-8be9-4b06-8960-5d0844ad50de}</Project>
+      <Name>BestHand</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
