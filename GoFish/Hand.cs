@@ -45,22 +45,63 @@ namespace GoFish
             return matched;
         }
 
-        //Draw a card and remove it from the deck
+        public void PlayTurn(Hand otherHand, Deck deck, Random rand)
+        {
+            Console.WriteLine($"******* {Name} Now: *******");
+            DisplayHand();
+            Console.WriteLine("Ask Match for a Card: Specify the index: ");
+            int index = Convert.ToInt32(Console.ReadLine());
+
+            bool matchFoundForTraded = false;
+            for (int i = 0; i < otherHand.Cards.Count; i++)
+            {
+                if (Cards[index].Value == otherHand.Cards[i].Value)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Match Found!");
+                    otherHand.Cards.Remove(otherHand.Cards[i]);
+                    Cards.Remove(Cards[index]);
+                    Points++;
+                    Console.WriteLine($"Points gained by {Name}: {Points}");
+                    matchFoundForTraded = true;
+                    break;
+                }
+            }
+            bool matchFoundForDrawn = false;
+            if (!matchFoundForTraded)
+            {
+                Console.WriteLine("No Match Found. GoFish! Drawing a card from Deck...!");
+                Card card = DrawCardFromDeck(rand, deck);
+                Console.WriteLine("Card Drawn: " + card.Suit + " " + card.Value);
+                for (int i = 0; i < Cards.Count; i++)
+                {
+                    if (card.Value == Cards[i].Value)
+                    {
+                        Console.WriteLine();
+                        Points++;
+                        Console.WriteLine($"Points gained by {Name}: {Points}");
+                        Cards.Remove(Cards[i]);
+                        matchFoundForDrawn = true;
+                        break;
+                    }
+                }
+                if (!matchFoundForDrawn)
+                    Cards.Add(card);
+            }
+            
+            Console.WriteLine($"******* {Name} Now: *******");
+
+            DisplayHand();
+            Console.WriteLine();
+
+            if (Cards.Count > 0 && matchFoundForTraded)
+                PlayTurn(otherHand, deck, rand);
+        }
+
         public Card DrawCardFromDeck(Random rand, Deck deck)
         {
-            //int min = 2;
-            //int max = 15;
-
-            //var randSuit = deck.Suits[rand.Next(0, 4)];
-            //var randVal = deck.Values[rand.Next(min, max)];
-            //var nextCard = deck.Cards.Single(card => card.Suit == randSuit && card.Value == randVal);
-
             var nextCard = deck.Cards[0];
             deck.Cards.Remove(nextCard);
-
-            //foreach (Card card in deck.Cards)
-            //    Console.WriteLine(card.Value + " ** " + card.Suit);
-
             return nextCard;
         }
 
