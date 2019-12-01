@@ -11,8 +11,8 @@ namespace BestHand
     class BestHandGame
     {
         public Deck Deck { get; set; }
-        public Hand Hand1 { get; set; }
-        public Hand Hand2 { get; set; }
+        public List<Hand> Hands = new List<Hand>();
+        
         public void StartGame()
         {
             Random rand = new Random();
@@ -22,30 +22,41 @@ namespace BestHand
 
         private void DeclareWinner()
         {
-            Hand1.CalculatePoints();
-            Hand2.CalculatePoints();
-
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"{Hand1.Name} Points: {Hand1.Points}");
-            Console.WriteLine($"{Hand2.Name} Points: {Hand2.Points}");
+            foreach (var hand in Hands)
+            {
+                hand.CalculatePoints();
+                Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+            }
 
             Console.WriteLine();
-            if (Hand1.Points == Hand2.Points)
+            if (Hands.All(hand => hand.Points == Hands.First().Points))
                 Console.WriteLine("Tie!!");
             else
-                Console.WriteLine("Winner is " + ((Hand1.Points > Hand2.Points) ? Hand1.Name : Hand2.Name));
+            {
+                int maxPoints = Hands.Max(hand => hand.Points);
+                Console.WriteLine("Winner is " + (Hands.First(hand => hand.Points == maxPoints)).Name);
+            }
         }
 
         private void SetupEntities(Random rand)
         {
             Deck = new Deck();
             Deck.Shuffle(rand);
-            
-            Hand1 = new Hand(8, "Player1", ConsoleColor.Yellow, Deck);
-            Hand1.DisplayHand();
-            Hand2 = new Hand(8, "Player2", ConsoleColor.Green, Deck);
-            Hand2.DisplayHand();
+            Console.WriteLine("How many Players: Choose a number betwwen 2 to 4");
+            int numOfPlayers = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                var playerName = "Player" + (i + 1);
+                int colorCode = i+2;
+                ConsoleColor color = (ConsoleColor)colorCode;
+                Hands.Add(new Hand(8, playerName, color, Deck));
+            }
+
+            foreach (var hand in Hands)
+                hand.DisplayHand();
         }
     }
 }
