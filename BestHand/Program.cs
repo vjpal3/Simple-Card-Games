@@ -10,8 +10,8 @@ namespace BestHand
     {
         static void Main(string[] args)
         {
-            
-
+            var game = new BestHandGame();
+            game.StartGame();
 
         }
     }

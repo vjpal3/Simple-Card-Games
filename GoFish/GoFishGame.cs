@@ -16,7 +16,7 @@ namespace GoFish
             var rand = new Random();
             SetUpEntities(rand);
             Turn = true;
-            
+
             while (Hand1.Cards.Count > 0 && Hand2.Cards.Count > 0 && Deck.Cards.Count > 0)
             {
                 if (Turn)
@@ -30,11 +30,16 @@ namespace GoFish
                 Turn = !Turn;
             }
 
+            DeclareWinner();
+        }
+
+        private void DeclareWinner()
+        {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"{Hand1.Name} Points: {Hand1.Points}");
             Console.WriteLine($"{Hand2.Name} Points: {Hand2.Points}");
 
-            if(Hand1.Points == Hand2.Points)
+            if (Hand1.Points == Hand2.Points)
                 Console.WriteLine("Tie!!");
             else
                 Console.WriteLine("Winner is " + ((Hand1.Points > Hand2.Points) ? Hand1.Name : Hand2.Name));

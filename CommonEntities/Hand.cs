@@ -20,6 +20,28 @@ namespace CommonEntities
                 deck.Cards.Remove(deck.Cards[i]);
             }
         }
+
+        public void CalculatePoints()
+        {
+            for (int i = 0; i < Cards.Count; i++)
+            {
+                switch(Cards[i].Value)
+                {
+                    case "J":
+                    case "Q":
+                    case "K":
+                        Points += 10;
+                        break;
+                    case "A":
+                        Points += 11;
+                        break;
+                    default:
+                        Points += Convert.ToInt32(Cards[i].Value);
+                        break;
+                }
+            }
+
+        }
         public bool MatchAndRemoveDuplicates()
         {
             bool matched = false;
@@ -109,11 +131,13 @@ namespace CommonEntities
 
         public void DisplayHand()
         {
+            Console.ForegroundColor = Color;
+            Console.WriteLine($"{Name}: ");
             for (int i = 0; i < Cards.Count; i++)
             {
                 Console.Write(Cards[i].Suit + " " + Cards[i].Value + "\t");
             }
-            Console.WriteLine();
+            Console.WriteLine("\n");
         }
     }
 
