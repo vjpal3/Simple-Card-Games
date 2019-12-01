@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestHand
+namespace CommonEntities
 {
     public class Card
     {
@@ -14,10 +14,10 @@ namespace BestHand
         public string Suit { get => suit; set => suit = value; }
         public string Value { get => value; set => this.value = value; }
 
-        public Card(string suit, string value) 
+        public Card(string suit, string value)
         {
-            this.Suit = suit;
-            this.Value = value;
+            Suit = suit;
+            Value = value;
         }
     }
 }

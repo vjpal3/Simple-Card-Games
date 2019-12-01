@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BestHand
+namespace CommonEntities
 {
     public class Deck
     {
         public List<Card> Cards = new List<Card>();
 
-        
+
         public string[] Suits = new string[] { "heart", "spade", "club", "diamond" };
-        public string[] Values = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        public string[] Values = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
         public Deck()
         {
@@ -26,7 +26,7 @@ namespace BestHand
         }
         public void Shuffle(Random rand)
         {
-            RandomExtensions.Shuffle(rand, this.Cards);
+            RandomExtensions.Shuffle(rand, Cards);
         }
 
         public void ShowDeck()
@@ -37,6 +37,6 @@ namespace BestHand
             }
         }
 
-        
+
     }
 }

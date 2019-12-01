@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestHand", "BestHand\BestHa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoFish", "GoFish\GoFish.csproj", "{48B4BC96-F8D7-4F3F-9EA0-E89B69EC66BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonEntities", "CommonEntities\CommonEntities.csproj", "{4AC3C005-44D5-45E4-8657-ACA45B4BCD27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{48B4BC96-F8D7-4F3F-9EA0-E89B69EC66BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B4BC96-F8D7-4F3F-9EA0-E89B69EC66BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B4BC96-F8D7-4F3F-9EA0-E89B69EC66BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AC3C005-44D5-45E4-8657-ACA45B4BCD27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC3C005-44D5-45E4-8657-ACA45B4BCD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AC3C005-44D5-45E4-8657-ACA45B4BCD27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC3C005-44D5-45E4-8657-ACA45B4BCD27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

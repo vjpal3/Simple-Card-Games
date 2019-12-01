@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BestHand;
 
-namespace GoFish
+namespace CommonEntities
 {
     public class Hand
     {
@@ -18,7 +14,7 @@ namespace GoFish
         {
             Name = name;
             Color = color;
-            for(int i = 0; i < numOfCards; i++)
+            for (int i = 0; i < numOfCards; i++)
             {
                 Cards.Add(deck.Cards[i]);
                 deck.Cards.Remove(deck.Cards[i]);
@@ -27,11 +23,11 @@ namespace GoFish
         public bool MatchAndRemoveDuplicates()
         {
             bool matched = false;
-            for(int i = Cards.Count-1; i >= 0; i--)
+            for (int i = Cards.Count - 1; i >= 0; i--)
             {
-                for(int j = i-1; j >= 0; j--)
+                for (int j = i - 1; j >= 0; j--)
                 {
-                    if(Cards[i].Value == Cards[j].Value)
+                    if (Cards[i].Value == Cards[j].Value)
                     {
                         Cards.RemoveAt(i);
                         Cards.RemoveAt(j);
@@ -121,5 +117,5 @@ namespace GoFish
         }
     }
 
-    
+
 }

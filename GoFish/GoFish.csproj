@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GoFishGame.cs" />
-    <Compile Include="Hand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BestHand\BestHand.csproj">
-      <Project>{41158913-8be9-4b06-8960-5d0844ad50de}</Project>
-      <Name>BestHand</Name>
+    <ProjectReference Include="..\CommonEntities\CommonEntities.csproj">
+      <Project>{4ac3c005-44d5-45e4-8657-aca45b4bcd27}</Project>
+      <Name>CommonEntities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
