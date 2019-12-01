@@ -20,7 +20,7 @@ namespace GoFish
             SetUpEntities(rand);
             Turn = true;
             
-            while (Hand1.Cards.Count > 0 || Hand2.Cards.Count > 0 || Deck.Cards.Count > 0)
+            while (Hand1.Cards.Count > 0 && Hand2.Cards.Count > 0 && Deck.Cards.Count > 0)
             {
                 if (Turn)
                 {
@@ -33,6 +33,10 @@ namespace GoFish
                 Turn = !Turn;
             }
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"{Hand1.Name} Points: {Hand1.Points}");
+            Console.WriteLine($"{Hand2.Name} Points: {Hand2.Points}");
+
             if(Hand1.Points == Hand2.Points)
                 Console.WriteLine("Tie!!");
             else
@@ -44,20 +48,20 @@ namespace GoFish
             
             Deck = new Deck();
             Deck.Shuffle(rand);
-            Hand1 = new Hand(5, "Player1", Deck);
-            ShowHand(Hand1);
-            
-            Hand2 = new Hand(5, "Player2", Deck);
-            ShowHand(Hand2);
-
+            Hand1 = new Hand(5, "Player1", ConsoleColor.Yellow, Deck);
+            Hand1.DisplayHand();
+            ShowInitialHand(Hand1);
+            Hand2 = new Hand(5, "Player2", ConsoleColor.Red, Deck);
+            ShowInitialHand(Hand2);
         }
 
-        public void ShowHand(Hand hand)
+        public void ShowInitialHand(Hand hand)
         {
+            Console.ForegroundColor = hand.Color;
             Console.WriteLine($"******* {hand.Name} Before: *******");
             hand.DisplayHand();
             hand.MatchAndRemoveDuplicates();
-            Console.WriteLine($"******* {hand.Name} After: *******");
+            Console.WriteLine($"After removing duplicates if any, {hand.Name}: ");
             hand.DisplayHand();
             Console.WriteLine($"Points gained by {hand.Name}: {hand.Points}");
             Console.WriteLine();

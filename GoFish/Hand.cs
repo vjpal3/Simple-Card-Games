@@ -12,11 +12,12 @@ namespace GoFish
         public List<Card> Cards = new List<Card>();
         public int Points { get; set; }
         public string Name { get; set; }
+        public ConsoleColor Color { get; set; }
 
-
-        public Hand(int numOfCards, string name, Deck deck)
+        public Hand(int numOfCards, string name, ConsoleColor color, Deck deck)
         {
             Name = name;
+            Color = color;
             for(int i = 0; i < numOfCards; i++)
             {
                 Cards.Add(deck.Cards[i]);
@@ -47,9 +48,15 @@ namespace GoFish
 
         public void PlayTurn(Hand otherHand, Deck deck, Random rand)
         {
+            Console.ForegroundColor = Color;
             Console.WriteLine($"******* {Name} Now: *******");
             DisplayHand();
-            Console.WriteLine("Ask Match for a Card: Specify the index: ");
+            Console.Write("Ask Match for a Card: Specify the index: { ");
+            for (int i = 0; i < Cards.Count; i++)
+            {
+                Console.Write(i + "  ");
+            }
+            Console.WriteLine("}");
             int index = Convert.ToInt32(Console.ReadLine());
 
             bool matchFoundForTraded = false;
@@ -88,9 +95,8 @@ namespace GoFish
                 if (!matchFoundForDrawn)
                     Cards.Add(card);
             }
-            
-            Console.WriteLine($"******* {Name} Now: *******");
 
+            Console.WriteLine($"******* {Name} Now: *******");
             DisplayHand();
             Console.WriteLine();
 
@@ -103,16 +109,6 @@ namespace GoFish
             var nextCard = deck.Cards[0];
             deck.Cards.Remove(nextCard);
             return nextCard;
-        }
-
-        public void AddCard(Card card)
-        {
-            Cards.Add(card);
-        }
-
-        public void RemoveCard(Card card)
-        {
-            Cards.Remove(card);
         }
 
         public void DisplayHand()
