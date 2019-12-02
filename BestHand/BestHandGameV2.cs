@@ -15,7 +15,19 @@ namespace BestHand
         {
             Random rand = new Random();
             SetupEntities(rand);
-            CalculateScoresOfMatchingCards();
+            //CalculateScoresOfMatchingCards();
+
+            CalculateScoresOfSequences();
+            
+        }
+
+        private void CalculateScoresOfSequences()
+        {
+            foreach (var hand in Hands)
+            {
+                hand.GroupSequences();
+
+            }
         }
 
         private void CalculateScoresOfMatchingCards()

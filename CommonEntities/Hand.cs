@@ -65,7 +65,74 @@ namespace CommonEntities
             }
         }
 
-        
+        private List<int> SortCardsValues()
+        {
+            var cardsIntValues = new List<int>();
+            foreach (var card in Cards)
+            {
+                switch (card.Value)
+                {
+                    case "J":
+                        cardsIntValues.Add(11);
+                        break;
+                    case "Q":
+                        cardsIntValues.Add(12);
+                        break;
+                    case "K":
+                        cardsIntValues.Add(13);
+                        break;
+                    case "A":
+                        cardsIntValues.Add(14);
+                        break;
+                    default:
+                        cardsIntValues.Add(Convert.ToInt32(card.Value));
+                        break;
+                }
+            }
+            cardsIntValues.Sort();
+            Console.Write("Sorted Values: ");
+            Console.ForegroundColor = Color;
+            foreach (var val in cardsIntValues)
+            {
+                Console.Write(val + " ");
+            }
+            Console.WriteLine();
+            return cardsIntValues;
+        }
+
+        public List<List<int>> GroupSequences()
+        {
+            List<int> sortedValues = SortCardsValues();
+
+            var groups = new List<List<int>>();
+            var group = new List<int>();
+            
+            foreach (var val in sortedValues)
+            {
+                if(group.Count == 0 || val - group[group.Count - 1] <= 1)
+                {
+                    group.Add(val);
+                }
+                else
+                {
+                    groups.Add(group);
+                    group = new List<int>();
+                }
+            }
+           
+            foreach (var g in groups)
+            {
+                Console.Write("Group: ");
+                foreach (var num in g)
+                {
+                    Console.Write(num + " ");
+                }
+                Console.WriteLine();
+            }
+            return groups;
+
+        }
+
         public bool MatchAndRemoveDuplicates()
         {
             bool matched = false;
