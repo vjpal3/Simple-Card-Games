@@ -16,11 +16,21 @@ namespace BestHand
             Random rand = new Random();
             SetupEntities(rand);
 
-            CalculateScoresOfMatchingCards();
+            //CalculateScoresOfMatchingCards();
             CalculateScoresOfSequences();
+            //CalculateScoresofRoyalFamilies();
         }
 
-        
+        private void CalculateScoresofRoyalFamilies()
+        {
+            foreach (var hand in Hands)
+            {
+                hand.AddScoresOfRoyalFamilies();
+                Console.ResetColor();
+                Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+            }
+        }
+
         private void CalculateScoresOfSequences()
         {
             foreach (var hand in Hands)

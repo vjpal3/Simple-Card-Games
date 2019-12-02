@@ -40,10 +40,7 @@ namespace CommonEntities
                         break;
                 }
             }
-
         }
-
-        
 
         public void AddScoresOfMatchingCards()
         {
@@ -70,6 +67,7 @@ namespace CommonEntities
         public void AddScoresOfSequences()
         {
             List<List<int>> groups = GroupSequences();
+
             foreach (var group in groups)
             {
                 if(group.Count >= 3)
@@ -88,7 +86,7 @@ namespace CommonEntities
 
             foreach (var val in sortedValues)
             {
-                if (group.Count == 0 || val - group[group.Count - 1] <= 1)
+                if (group.Count == 0 || val - group[group.Count - 1] == 1)
                 {
                     group.Add(val);
                 }
@@ -148,7 +146,10 @@ namespace CommonEntities
             return cardsIntValues;
         }
 
-        
+        public void AddScoresOfRoyalFamilies()
+        {
+            
+        }
 
         public bool MatchAndRemoveDuplicates()
         {
