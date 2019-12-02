@@ -16,9 +16,77 @@ namespace BestHand
             Random rand = new Random();
             SetupEntities(rand);
 
-            CalculateScoresOfMatchingCards();
-            CalculateScoresOfSequences();
-            CalculateScoresofRoyalFamily();
+            DiscardCommonRoyalFamilyCards();
+            //CalculateScoresOfMatchingCards();
+            //CalculateScoresOfSequences();
+            //CalculateScoresofRoyalFamily();
+        }
+
+        private void DiscardCommonRoyalFamilyCards()
+        {
+            List<List<int>> royalFamilies = new List<List<int>>();
+            foreach (var hand in Hands)
+            {
+                royalFamilies.Add(hand.FilterRoyalFamily());
+            }
+
+            foreach (var family in royalFamilies)
+            {
+                Console.Write("FaceCard Group: ");
+                foreach (var faceCard in family)
+                {
+                    Console.Write(faceCard + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("****After removing common royal family cards*****");
+
+            
+            for (int i = royalFamilies.Count - 1; i >= 0; i--)
+            {
+                var itemToRemove = 0;
+                var markForDeletion = false;
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    if((royalFamilies[i].Count > 0) && (royalFamilies[j].Count > 0))
+                    {
+                        itemToRemove = 0;
+                        markForDeletion = false;
+                        for (int m = royalFamilies[i].Count-1; m >= 0; m--)
+                        {
+                            for (int n = royalFamilies[j].Count - 1; n >= 0; n--)
+                            {
+                                if(royalFamilies[i][m] == royalFamilies[j][n])
+                                {
+                                    markForDeletion = true;
+                                    itemToRemove = royalFamilies[i][m];
+                                    royalFamilies[j].RemoveAt(n);
+                                }
+                            }
+                        }
+                        
+                    }
+                    if (markForDeletion)
+                    {
+                        royalFamilies[i].Remove(itemToRemove);
+                    }
+
+                }
+                
+
+            }
+
+            foreach (var family in royalFamilies)
+            {
+                Console.Write("FaceCard Group: ");
+                foreach (var faceCard in family)
+                {
+                    Console.Write(faceCard + " ");
+                }
+                Console.WriteLine();
+            }
+
         }
 
         private void CalculateScoresofRoyalFamily()

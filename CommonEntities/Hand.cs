@@ -57,7 +57,7 @@ namespace CommonEntities
                         tempList.RemoveAt(j);
                         j--;
                         i--;
-                        Points += 3;
+                        Points += 2;
                         break;
                     }
                 }
@@ -155,7 +155,7 @@ namespace CommonEntities
             }
         }
 
-        private List<int> FilterRoyalFamily()
+        public List<int> FilterRoyalFamily()
         {
             List<int> sortedValues = SortCardsValues();
             List<int> royalFamily = new List<int>();
