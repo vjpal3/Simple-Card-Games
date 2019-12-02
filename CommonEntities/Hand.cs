@@ -42,6 +42,30 @@ namespace CommonEntities
             }
 
         }
+
+        public void AddScoresOfMatchingCards()
+        {
+            List<Card> tempList = new List<Card>();
+            tempList.AddRange(Cards);
+
+            for (int i = tempList.Count - 1; i >= 0; i--)
+            {
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    if (tempList[i].Value == tempList[j].Value)
+                    {
+                        tempList.RemoveAt(i);
+                        tempList.RemoveAt(j);
+                        j--;
+                        i--;
+                        Points += 3;
+                        break;
+                    }
+                }
+            }
+        }
+
+        
         public bool MatchAndRemoveDuplicates()
         {
             bool matched = false;
