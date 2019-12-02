@@ -90,8 +90,9 @@ namespace CommonEntities
                 }
             }
             cardsIntValues.Sort();
-            Console.Write("Sorted Values: ");
             Console.ForegroundColor = Color;
+            Console.Write("Sorted Values: ");
+            
             foreach (var val in cardsIntValues)
             {
                 Console.Write(val + " ");
@@ -116,10 +117,11 @@ namespace CommonEntities
                 else
                 {
                     groups.Add(group);
-                    group = new List<int>();
+                    group = new List<int> { val };
                 }
             }
-           
+            groups.Add(group);
+
             foreach (var g in groups)
             {
                 Console.Write("Group: ");
