@@ -146,9 +146,25 @@ namespace CommonEntities
             return cardsIntValues;
         }
 
-        public void AddScoresOfRoyalFamilies()
+        public void AddScoresOfRoyalFamily()
         {
-            
+            List<int> royalFamily = FilterRoyalFamily();
+            if (royalFamily.Count >= 2)
+            {
+                Points += (royalFamily.Count - 1) * 5;
+            }
+        }
+
+        private List<int> FilterRoyalFamily()
+        {
+            List<int> sortedValues = SortCardsValues();
+            List<int> royalFamily = new List<int>();
+            foreach (var val in sortedValues)
+            {
+                if (val > 10 && val < 14)
+                    royalFamily.Add(val);
+            }
+            return royalFamily;
         }
 
         public bool MatchAndRemoveDuplicates()
