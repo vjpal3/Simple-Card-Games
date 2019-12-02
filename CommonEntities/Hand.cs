@@ -43,6 +43,8 @@ namespace CommonEntities
 
         }
 
+        
+
         public void AddScoresOfMatchingCards()
         {
             List<Card> tempList = new List<Card>();
@@ -63,6 +65,51 @@ namespace CommonEntities
                     }
                 }
             }
+        }
+
+        public void AddScoresOfSequences()
+        {
+            List<List<int>> groups = GroupSequences();
+            foreach (var group in groups)
+            {
+                if(group.Count >= 3)
+                {
+                    Points += (group.Count - 2) * 3;
+                }
+            }
+        }
+
+        public List<List<int>> GroupSequences()
+        {
+            List<int> sortedValues = SortCardsValues();
+
+            var groups = new List<List<int>>();
+            var group = new List<int>();
+
+            foreach (var val in sortedValues)
+            {
+                if (group.Count == 0 || val - group[group.Count - 1] <= 1)
+                {
+                    group.Add(val);
+                }
+                else
+                {
+                    groups.Add(group);
+                    group = new List<int> { val };
+                }
+            }
+            groups.Add(group);
+
+            foreach (var g in groups)
+            {
+                Console.Write("Group: ");
+                foreach (var num in g)
+                {
+                    Console.Write(num + " ");
+                }
+                Console.WriteLine();
+            }
+            return groups;
         }
 
         private List<int> SortCardsValues()
@@ -101,39 +148,7 @@ namespace CommonEntities
             return cardsIntValues;
         }
 
-        public List<List<int>> GroupSequences()
-        {
-            List<int> sortedValues = SortCardsValues();
-
-            var groups = new List<List<int>>();
-            var group = new List<int>();
-            
-            foreach (var val in sortedValues)
-            {
-                if(group.Count == 0 || val - group[group.Count - 1] <= 1)
-                {
-                    group.Add(val);
-                }
-                else
-                {
-                    groups.Add(group);
-                    group = new List<int> { val };
-                }
-            }
-            groups.Add(group);
-
-            foreach (var g in groups)
-            {
-                Console.Write("Group: ");
-                foreach (var num in g)
-                {
-                    Console.Write(num + " ");
-                }
-                Console.WriteLine();
-            }
-            return groups;
-
-        }
+        
 
         public bool MatchAndRemoveDuplicates()
         {
