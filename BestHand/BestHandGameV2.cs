@@ -11,18 +11,29 @@ namespace BestHand
     {
         public Deck Deck { get; set; }
         public List<Hand> Hands = new List<Hand>();
+
         public void StartGame()
         {
             Random rand = new Random();
             SetupEntities(rand);
 
-            DiscardCommonRoyalFamilyCards();
+            RemoveCommonRoyalFamilyCards();
+
             //CalculateScoresOfMatchingCards();
             //CalculateScoresOfSequences();
             //CalculateScoresofRoyalFamily();
         }
 
-        private void DiscardCommonRoyalFamilyCards()
+        private void RemoveCommonRoyalFamilyCards()
+        {
+            List<List<int>> royalFamilies = GetRemainingRoyals();
+            for (int i = 0; i < Hands.Count; i++)  
+            {
+                Hands[i].RemoveRoyals(royalFamilies[i]);
+            }
+        }
+
+        private List<List<int>> GetRemainingRoyals()
         {
             List<List<int>> royalFamilies = new List<List<int>>();
             foreach (var hand in Hands)
@@ -84,6 +95,8 @@ namespace BestHand
                 }
                 Console.WriteLine();
             }
+
+            return royalFamilies;
 
         }
 

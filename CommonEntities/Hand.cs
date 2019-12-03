@@ -42,6 +42,33 @@ namespace CommonEntities
             }
         }
 
+        public void RemoveRoyals(List<int> royalFamily)
+        {
+            for (int i = Cards.Count - 1; i >= 0; i--)
+            {
+                int val = 0;
+                switch(Cards[i].Value)
+                {
+                    case "J":
+                        val = 11;
+                        break;
+                    case "Q":
+                        val = 12;
+                        break;
+                    case "K":
+                        val = 13;
+                        break;
+                }
+                if (val > 10 && !royalFamily.Contains(val))
+                    Cards.RemoveAt(i);
+                else
+                    royalFamily.Remove(val);
+            }
+            Console.WriteLine("After royal family removal");
+            DisplayHand();
+
+        }
+
         public void AddScoresOfMatchingCards()
         {
             List<Card> tempList = new List<Card>();
