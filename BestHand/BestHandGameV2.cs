@@ -22,6 +22,7 @@ namespace BestHand
             AwardSequencesBonus();
             AwardRoyalFamilyBonus();
             GetFinalScore();
+            DeclareWinner();
         }
 
         private void SetupEntities(Random rand)
@@ -143,6 +144,19 @@ namespace BestHand
             {
                 hand.CalculateFinalScore();
                 hand.DisplayScore();
+            }
+            Console.WriteLine();
+        }
+
+        private void DeclareWinner()
+        {
+            Console.ResetColor();
+            if (Hands.All(hand => hand.Points == Hands.First().Points))
+                Console.WriteLine("Tie!!");
+            else
+            {
+                int maxPoints = Hands.Max(hand => hand.Points);
+                Console.WriteLine("Winner is " + (Hands.First(hand => hand.Points == maxPoints)).Name);
             }
             Console.WriteLine();
         }
