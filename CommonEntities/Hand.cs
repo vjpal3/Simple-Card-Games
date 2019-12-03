@@ -21,7 +21,7 @@ namespace CommonEntities
             }
         }
 
-        public void CalculatePoints()
+        public void CalculateFinalScore()
         {
             for (int i = 0; i < Cards.Count; i++)
             {
@@ -69,7 +69,7 @@ namespace CommonEntities
 
         }
 
-        public void AddScoresOfMatchingCards()
+        public void AddMatchingCardsBonus()
         {
             List<Card> tempList = new List<Card>();
             tempList.AddRange(Cards);
@@ -91,7 +91,7 @@ namespace CommonEntities
             }
         }
 
-        public void AddScoresOfSequences()
+        public void AddSequencesBonus()
         {
             List<List<int>> groups = GroupSequences();
 
@@ -173,7 +173,7 @@ namespace CommonEntities
             return cardsIntValues;
         }
 
-        public void AddScoresOfRoyalFamily()
+        public void AddRoyalFamilyBonus()
         {
             List<int> royalFamily = FilterRoyalFamily();
             if (royalFamily.Count >= 2)

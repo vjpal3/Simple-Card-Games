@@ -26,7 +26,7 @@ namespace BestHand
             Console.ForegroundColor = ConsoleColor.Cyan;
             foreach (var hand in Hands)
             {
-                hand.CalculatePoints();
+                hand.CalculateFinalScore();
                 Console.WriteLine($"{hand.Name} Points: {hand.Points}");
             }
 

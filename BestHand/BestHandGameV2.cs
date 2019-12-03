@@ -18,19 +18,18 @@ namespace BestHand
             SetupEntities(rand);
 
             RemoveCommonRoyalFamilyCards();
+            AwardMatchingCardsBonus();
+            AwardSequencesBonus();
+            AwardRoyalFamilyBonus();
 
-            //CalculateScoresOfMatchingCards();
-            //CalculateScoresOfSequences();
-            //CalculateScoresofRoyalFamily();
+
         }
 
         private void RemoveCommonRoyalFamilyCards()
         {
             List<List<int>> royalFamilies = GetRemainingRoyals();
             for (int i = 0; i < Hands.Count; i++)  
-            {
                 Hands[i].RemoveRoyals(royalFamilies[i]);
-            }
         }
 
         private List<List<int>> GetRemainingRoyals()
@@ -100,35 +99,34 @@ namespace BestHand
 
         }
 
-        private void CalculateScoresofRoyalFamily()
+        private void AwardRoyalFamilyBonus()
         {
             foreach (var hand in Hands)
             {
-                hand.AddScoresOfRoyalFamily();
+                hand.AddRoyalFamilyBonus();
                 Console.ResetColor();
                 Console.WriteLine($"{hand.Name} Points: {hand.Points}");
             }
         }
 
-        private void CalculateScoresOfSequences()
+        private void AwardSequencesBonus()
         {
             foreach (var hand in Hands)
             {
-                hand.AddScoresOfSequences();
+                hand.AddSequencesBonus();
                 Console.ResetColor();
                 Console.WriteLine($"{hand.Name} Points: {hand.Points}");
             }
         }
 
-        private void CalculateScoresOfMatchingCards()
+        private void AwardMatchingCardsBonus()
         {
             Console.WriteLine();
             foreach (var hand in Hands)
             {
-                hand.AddScoresOfMatchingCards();
+                hand.AddMatchingCardsBonus();
                 Console.ResetColor();
                 Console.WriteLine($"{hand.Name} Points: {hand.Points}");
-
             }
         }
 
