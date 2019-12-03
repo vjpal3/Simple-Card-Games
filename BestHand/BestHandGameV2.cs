@@ -21,8 +21,6 @@ namespace BestHand
             AwardMatchingCardsBonus();
             AwardSequencesBonus();
             AwardRoyalFamilyBonus();
-
-
         }
 
         private void RemoveCommonRoyalFamilyCards()
@@ -40,17 +38,7 @@ namespace BestHand
                 royalFamilies.Add(hand.FilterRoyalFamily());
             }
 
-            foreach (var family in royalFamilies)
-            {
-                Console.Write("FaceCard Group: ");
-                foreach (var faceCard in family)
-                {
-                    Console.Write(faceCard + " ");
-                }
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("****After removing common royal family cards*****");
+            Hand.DisplayGroups(royalFamilies);
 
             for (int i = royalFamilies.Count - 1; i >= 0; i--)
             {
@@ -84,19 +72,9 @@ namespace BestHand
                     }
                 }
             }
-
-            foreach (var family in royalFamilies)
-            {
-                Console.Write("FaceCard Group: ");
-                foreach (var faceCard in family)
-                {
-                    Console.Write(faceCard + " ");
-                }
-                Console.WriteLine();
-            }
-
+            Console.WriteLine("****After removing common royals*****");
+            Hand.DisplayGroups(royalFamilies);
             return royalFamilies;
-
         }
 
         private void AwardRoyalFamilyBonus()

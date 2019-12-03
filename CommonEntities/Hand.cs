@@ -64,9 +64,7 @@ namespace CommonEntities
                 else
                     royalFamily.Remove(val);
             }
-            Console.WriteLine("After royal family removal");
             DisplayHand();
-
         }
 
         public void AddMatchingCardsBonus()
@@ -124,17 +122,22 @@ namespace CommonEntities
                 }
             }
             groups.Add(group);
+            DisplayGroups(groups);
+            return groups;
+        }
 
-            foreach (var g in groups)
+        public static void DisplayGroups(List<List<int>> groups)
+        {
+            Console.ResetColor();
+            foreach (var group in groups)
             {
                 Console.Write("Group: ");
-                foreach (var num in g)
+                foreach (var num in group)
                 {
                     Console.Write(num + " ");
                 }
                 Console.WriteLine();
             }
-            return groups;
         }
 
         private List<int> SortCardsValues()
@@ -162,14 +165,6 @@ namespace CommonEntities
                 }
             }
             cardsIntValues.Sort();
-            Console.ForegroundColor = Color;
-            Console.Write("Sorted Values: ");
-            
-            foreach (var val in cardsIntValues)
-            {
-                Console.Write(val + " ");
-            }
-            Console.WriteLine();
             return cardsIntValues;
         }
 
