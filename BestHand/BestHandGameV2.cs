@@ -42,39 +42,37 @@ namespace BestHand
 
             Console.WriteLine("****After removing common royal family cards*****");
 
-            
             for (int i = royalFamilies.Count - 1; i >= 0; i--)
             {
-                var itemToRemove = 0;
-                var markForDeletion = false;
-                for (int j = i - 1; j >= 0; j--)
+                if (royalFamilies[i].Count > 0 )
                 {
-                    if((royalFamilies[i].Count > 0) && (royalFamilies[j].Count > 0))
+                    for (int m = royalFamilies[i].Count - 1; m >= 0; m--)
                     {
-                        itemToRemove = 0;
-                        markForDeletion = false;
-                        for (int m = royalFamilies[i].Count-1; m >= 0; m--)
+                        var itemToRemove = 0;
+                        var markForDeletion = false;
+                        for (int j = i - 1; j >= 0; j--)
                         {
-                            for (int n = royalFamilies[j].Count - 1; n >= 0; n--)
+                            if (royalFamilies[j].Count > 0)
                             {
-                                if(royalFamilies[i][m] == royalFamilies[j][n])
+                                var deleted = false;
+                                for (int n = royalFamilies[j].Count - 1; n >= 0; n--)
                                 {
-                                    markForDeletion = true;
-                                    itemToRemove = royalFamilies[i][m];
-                                    royalFamilies[j].RemoveAt(n);
+                                    if (royalFamilies[i][m] == royalFamilies[j][n] && !deleted)
+                                    {
+                                        markForDeletion = true;
+                                        itemToRemove = royalFamilies[i][m];
+                                        royalFamilies[j].RemoveAt(n);
+                                        deleted = true;
+                                    }
                                 }
                             }
                         }
-                        
+                        if (markForDeletion)
+                        {
+                            royalFamilies[i].Remove(itemToRemove);
+                        }
                     }
-                    if (markForDeletion)
-                    {
-                        royalFamilies[i].Remove(itemToRemove);
-                    }
-
                 }
-                
-
             }
 
             foreach (var family in royalFamilies)
