@@ -21,33 +21,12 @@ namespace CommonEntities
             }
         }
 
-        public void CalculateFinalScore()
-        {
-            for (int i = 0; i < Cards.Count; i++)
-            {
-                switch(Cards[i].Value)
-                {
-                    case "J":
-                    case "Q":
-                    case "K":
-                        Points += (int)Scores.RoyalFamilyValue;
-                        break;
-                    case "A":
-                        Points += (int)Scores.AceValue;
-                        break;
-                    default:
-                        Points += Convert.ToInt32(Cards[i].Value);
-                        break;
-                }
-            }
-        }
-
         public void RemoveRoyals(List<int> royalFamily)
         {
             for (int i = Cards.Count - 1; i >= 0; i--)
             {
                 int val = 0;
-                switch(Cards[i].Value)
+                switch (Cards[i].Value)
                 {
                     case "J":
                         val = 11;
@@ -64,7 +43,7 @@ namespace CommonEntities
                 else
                     royalFamily.Remove(val);
             }
-            DisplayHand();
+            //DisplayHand();
         }
 
         public void AddMatchingCardsBonus()
@@ -85,6 +64,27 @@ namespace CommonEntities
                         Points += (int)Scores.MatchesBonus;
                         break;
                     }
+                }
+            }
+        }
+
+        public void CalculateFinalScore()
+        {
+            for (int i = 0; i < Cards.Count; i++)
+            {
+                switch(Cards[i].Value)
+                {
+                    case "J":
+                    case "Q":
+                    case "K":
+                        Points += (int)Scores.RoyalFamilyValue;
+                        break;
+                    case "A":
+                        Points += (int)Scores.AceValue;
+                        break;
+                    default:
+                        Points += Convert.ToInt32(Cards[i].Value);
+                        break;
                 }
             }
         }
@@ -122,13 +122,13 @@ namespace CommonEntities
                 }
             }
             groups.Add(group);
+            Console.ForegroundColor = Color;
             DisplayGroups(groups);
             return groups;
         }
 
         public static void DisplayGroups(List<List<int>> groups)
         {
-            Console.ResetColor();
             foreach (var group in groups)
             {
                 Console.Write("Group: ");
@@ -138,6 +138,7 @@ namespace CommonEntities
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
 
         private List<int> SortCardsValues()
@@ -293,6 +294,4 @@ namespace CommonEntities
             Console.WriteLine($"{Name} Points: {Points}");
         }
     }
-
-
 }

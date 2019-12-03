@@ -24,19 +24,29 @@ namespace BestHand
             GetFinalScore();
         }
 
-        private void GetFinalScore()
+        private void SetupEntities(Random rand)
         {
-            foreach (var hand in Hands)
+            Deck = new Deck();
+            Deck.Shuffle(rand);
+            Console.WriteLine("How many Players: Choose a number betwwen 2 to 4");
+            int numOfPlayers = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < numOfPlayers; i++)
             {
-                hand.CalculateFinalScore();
-                hand.DisplayScore();
+                var playerName = "Player" + (i + 1);
+                int colorCode = i + 2;
+                ConsoleColor color = (ConsoleColor)colorCode;
+                Hands.Add(new Hand(8, playerName, color, Deck));
             }
+
+            foreach (var hand in Hands)
+                hand.DisplayHand();
         }
 
         private void RemoveCommonRoyalFamilyCards()
         {
             List<List<int>> royalFamilies = GetRemainingRoyals();
-            for (int i = 0; i < Hands.Count; i++)  
+            for (int i = 0; i < Hands.Count; i++)
                 Hands[i].RemoveRoyals(royalFamilies[i]);
         }
 
@@ -47,12 +57,13 @@ namespace BestHand
             {
                 royalFamilies.Add(hand.FilterRoyalFamily());
             }
-
+            Console.ResetColor();
+            Console.WriteLine("Royals before removal");
             Hand.DisplayGroups(royalFamilies);
 
             for (int i = royalFamilies.Count - 1; i >= 0; i--)
             {
-                if (royalFamilies[i].Count > 0 )
+                if (royalFamilies[i].Count > 0)
                 {
                     for (int m = royalFamilies[i].Count - 1; m >= 0; m--)
                     {
@@ -82,56 +93,58 @@ namespace BestHand
                     }
                 }
             }
-            Console.WriteLine("****After removing common royals*****");
+            Console.WriteLine("****Royals after removal*****");
             Hand.DisplayGroups(royalFamilies);
             return royalFamilies;
         }
 
-        private void AwardRoyalFamilyBonus()
-        {
-            foreach (var hand in Hands)
-            {
-                hand.AddRoyalFamilyBonus();
-                hand.DisplayScore();
-            }
-        }
-
-        private void AwardSequencesBonus()
-        {
-            foreach (var hand in Hands)
-            {
-                hand.AddSequencesBonus();
-                hand.DisplayScore();
-            }
-        }
-
         private void AwardMatchingCardsBonus()
         {
-            Console.WriteLine();
+            Console.ResetColor();
+            Console.WriteLine("Adding Matching cards bonus if any");
             foreach (var hand in Hands)
             {
                 hand.AddMatchingCardsBonus();
                 hand.DisplayScore();
             }
+            Console.WriteLine();
         }
 
-        private void SetupEntities(Random rand)
+        private void AwardSequencesBonus()
         {
-            Deck = new Deck();
-            Deck.Shuffle(rand);
-            Console.WriteLine("How many Players: Choose a number betwwen 2 to 4");
-            int numOfPlayers = Convert.ToInt32(Console.ReadLine());
-
-            for (int i = 0; i < numOfPlayers; i++)
-            {
-                var playerName = "Player" + (i + 1);
-                int colorCode = i + 2;
-                ConsoleColor color = (ConsoleColor)colorCode;
-                Hands.Add(new Hand(8, playerName, color, Deck));
-            }
-
+            Console.ResetColor();
+            Console.WriteLine("Adding Sequences bonus if any");
             foreach (var hand in Hands)
-                hand.DisplayHand();
+            {
+                hand.AddSequencesBonus();
+                hand.DisplayScore();
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        private void AwardRoyalFamilyBonus()
+        {
+            Console.ResetColor();
+            Console.WriteLine("Adding Royal family bonus if any");
+            foreach (var hand in Hands)
+            {
+                hand.AddRoyalFamilyBonus();
+                hand.DisplayScore();
+            }
+            Console.WriteLine();
+        }
+
+        private void GetFinalScore()
+        {
+            Console.ResetColor();
+            Console.WriteLine("Final Score");
+            foreach (var hand in Hands)
+            {
+                hand.CalculateFinalScore();
+                hand.DisplayScore();
+            }
+            Console.WriteLine();
         }
     }
 }
