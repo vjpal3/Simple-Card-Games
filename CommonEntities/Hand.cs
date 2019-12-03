@@ -30,10 +30,10 @@ namespace CommonEntities
                     case "J":
                     case "Q":
                     case "K":
-                        Points += 10;
+                        Points += (int)Scores.RoyalFamilyValue;
                         break;
                     case "A":
-                        Points += 11;
+                        Points += (int)Scores.AceValue;
                         break;
                     default:
                         Points += Convert.ToInt32(Cards[i].Value);
@@ -84,7 +84,7 @@ namespace CommonEntities
                         tempList.RemoveAt(j);
                         j--;
                         i--;
-                        Points += 2;
+                        Points += (int)Scores.MatchesBonus;
                         break;
                     }
                 }
@@ -99,7 +99,7 @@ namespace CommonEntities
             {
                 if(group.Count >= 3)
                 {
-                    Points += (group.Count - 2) * 3;
+                    Points += (group.Count - 2) * (int)Scores.SequencesBonus;
                 }
             }
         }
@@ -178,7 +178,7 @@ namespace CommonEntities
             List<int> royalFamily = FilterRoyalFamily();
             if (royalFamily.Count >= 2)
             {
-                Points += (royalFamily.Count - 1) * 5;
+                Points += (royalFamily.Count - 1) * (int)Scores.RoyalFamilyBonus;
             }
         }
 
