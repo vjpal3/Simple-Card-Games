@@ -286,6 +286,12 @@ namespace CommonEntities
             }
             Console.WriteLine("\n");
         }
+
+        public void DisplayScore()
+        {
+            Console.ResetColor();
+            Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+        }
     }
 
 

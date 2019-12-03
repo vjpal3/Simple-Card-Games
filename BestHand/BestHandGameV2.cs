@@ -82,8 +82,7 @@ namespace BestHand
             foreach (var hand in Hands)
             {
                 hand.AddRoyalFamilyBonus();
-                Console.ResetColor();
-                Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+                hand.DisplayScore();
             }
         }
 
@@ -92,8 +91,7 @@ namespace BestHand
             foreach (var hand in Hands)
             {
                 hand.AddSequencesBonus();
-                Console.ResetColor();
-                Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+                hand.DisplayScore();
             }
         }
 
@@ -103,8 +101,7 @@ namespace BestHand
             foreach (var hand in Hands)
             {
                 hand.AddMatchingCardsBonus();
-                Console.ResetColor();
-                Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+                hand.DisplayScore();
             }
         }
 
