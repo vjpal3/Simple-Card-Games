@@ -21,6 +21,16 @@ namespace BestHand
             AwardMatchingCardsBonus();
             AwardSequencesBonus();
             AwardRoyalFamilyBonus();
+            GetFinalScore();
+        }
+
+        private void GetFinalScore()
+        {
+            foreach (var hand in Hands)
+            {
+                hand.CalculateFinalScore();
+                hand.DisplayScore();
+            }
         }
 
         private void RemoveCommonRoyalFamilyCards()

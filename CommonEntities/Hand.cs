@@ -289,8 +289,8 @@ namespace CommonEntities
 
         public void DisplayScore()
         {
-            Console.ResetColor();
-            Console.WriteLine($"{hand.Name} Points: {hand.Points}");
+            Console.ForegroundColor = Color;
+            Console.WriteLine($"{Name} Points: {Points}");
         }
     }
 
