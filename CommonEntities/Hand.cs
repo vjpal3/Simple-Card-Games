@@ -127,8 +127,9 @@ namespace CommonEntities
             return groups;
         }
 
-        public static void DisplayGroups(List<List<int>> groups)
+        public static void DisplayGroups(List<List<int>> groups, string msg)
         {
+            Console.WriteLine(msg);
             foreach (var group in groups)
             {
                 Console.Write("Group: ");

@@ -59,8 +59,7 @@ namespace BestHand
                 royalFamilies.Add(hand.FilterRoyalFamily());
             }
             Console.ResetColor();
-            Console.WriteLine("Royals before removal");
-            Hand.DisplayGroups(royalFamilies);
+            Hand.DisplayGroups(royalFamilies, "Royals before removal");
 
             for (int i = royalFamilies.Count - 1; i >= 0; i--)
             {
@@ -94,8 +93,7 @@ namespace BestHand
                     }
                 }
             }
-            Console.WriteLine("****Royals after removal*****");
-            Hand.DisplayGroups(royalFamilies);
+            Hand.DisplayGroups(royalFamilies, "****Royals after removal*****");
             return royalFamilies;
         }
 
