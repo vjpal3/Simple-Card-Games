@@ -13,6 +13,9 @@ namespace GoFish
             var game = new GoFishGame();
             game.StartGame();
 
+            Console.WriteLine("Press enter to exit");
+            Console.ReadLine();
+
         }
     }
 }

@@ -51,7 +51,6 @@ namespace GoFish
             Deck = new Deck();
             Deck.Shuffle(rand);
             Hand1 = new Hand(5, "Player1", ConsoleColor.Yellow, Deck);
-            Hand1.DisplayHand();
             ShowInitialHand(Hand1);
             Hand2 = new Hand(5, "Player2", ConsoleColor.Red, Deck);
             ShowInitialHand(Hand2);

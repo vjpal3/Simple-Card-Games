@@ -252,6 +252,7 @@ namespace CommonEntities
                     {
                         Console.WriteLine();
                         Points++;
+                        Console.WriteLine("Match found with newly drawn card");
                         Console.WriteLine($"Points gained by {Name}: {Points}");
                         Cards.Remove(Cards[i]);
                         matchFoundForDrawn = true;
@@ -262,10 +263,13 @@ namespace CommonEntities
                     Cards.Add(card);
             }
 
-            Console.WriteLine($"******* {Name} Now: *******");
-            DisplayHand();
-            Console.WriteLine();
-
+            if(!matchFoundForTraded)
+            {
+                Console.WriteLine($"******* {Name} Now: *******");
+                DisplayHand();
+                Console.WriteLine();
+            }
+            
             if (Cards.Count > 0 && matchFoundForTraded)
                 PlayTurn(otherHand, deck, rand);
         }
