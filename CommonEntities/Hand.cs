@@ -46,6 +46,21 @@ namespace CommonEntities
             //DisplayHand();
         }
 
+        public void ExchangeCards(Random rand, Deck deck, List<int> fibonacciTrade)
+        {
+            DisplayHand();
+            Console.WriteLine($"{Name}, Trade a card!");
+
+            Console.Write("Type Card Value and Suit separated by space (like - heart 3:  ");
+            var tradedInput = Console.ReadLine().Split(' ');
+            var tradedCard = Cards.Find(card => card.Value == tradedInput[1] && card.Suit == tradedInput[0]);
+            Cards.Remove(tradedCard);
+            var newCard = DrawCardFromDeck(rand, deck);
+            Console.WriteLine($"You are recieving new Card: {newCard.Suit} {newCard.Value} ");
+            Cards.Add(newCard);
+            Console.WriteLine();
+        }
+
         public void AddMatchingCardsBonus()
         {
             List<Card> tempList = new List<Card>();
@@ -123,7 +138,7 @@ namespace CommonEntities
             }
             groups.Add(group);
             Console.ForegroundColor = Color;
-            DisplayGroups(groups);
+            DisplayGroups(groups, "");
             return groups;
         }
 

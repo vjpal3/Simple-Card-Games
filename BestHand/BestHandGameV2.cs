@@ -11,18 +11,40 @@ namespace BestHand
     {
         public Deck Deck { get; set; }
         public List<Hand> Hands = new List<Hand>();
+        private readonly List<int> fibonacciTrade = new List<int> { 1, 2, 3, 5 };
 
         public void StartGame()
         {
             Random rand = new Random();
             SetupEntities(rand);
+           
+            PlayTurns(rand);
+            DisplayHands();
 
-            RemoveCommonRoyalFamilyCards();
-            AwardMatchingCardsBonus();
-            AwardSequencesBonus();
-            AwardRoyalFamilyBonus();
-            GetFinalScore();
-            DeclareWinner();
+            //RemoveCommonRoyalFamilyCards();
+            //AwardMatchingCardsBonus();
+            //AwardSequencesBonus();
+            //AwardRoyalFamilyBonus();
+            //GetFinalScore();
+            //DeclareWinner();
+        }
+
+        private void DisplayHands()
+        {
+            foreach (var hand in Hands)
+            {
+                hand.DisplayHand();
+            }
+
+        }
+
+        private void PlayTurns(Random rand)
+        {
+            
+            foreach (var hand in Hands)
+            {
+                hand.ExchangeCards(rand, Deck, fibonacciTrade);
+            }
         }
 
         private void SetupEntities(Random rand)
