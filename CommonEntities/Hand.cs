@@ -49,16 +49,29 @@ namespace CommonEntities
         public void ExchangeCards(Random rand, Deck deck, List<int> fibonacciTrade)
         {
             DisplayHand();
-            Console.WriteLine($"{Name}, Trade a card!");
+            var tradeNumber = EnforceFibTradeRule(fibonacciTrade);
 
-            Console.Write("Type Card Value and Suit separated by space (like - heart 3:  ");
-            var tradedInput = Console.ReadLine().Split(' ');
-            var tradedCard = Cards.Find(card => card.Value == tradedInput[1] && card.Suit == tradedInput[0]);
-            Cards.Remove(tradedCard);
-            var newCard = DrawCardFromDeck(rand, deck);
-            Console.WriteLine($"You are recieving new Card: {newCard.Suit} {newCard.Value} ");
-            Cards.Add(newCard);
-            Console.WriteLine();
+            //Console.Write("Type Card Value and Suit separated by space (like - heart 3:  ");
+            //var tradedInput = Console.ReadLine().Split(' ');
+            //var tradedCard = Cards.Find(card => card.Value == tradedInput[1] && card.Suit == tradedInput[0]);
+            //Cards.Remove(tradedCard);
+            //var newCard = DrawCardFromDeck(rand, deck);
+            //Console.WriteLine($"You are recieving new Card: {newCard.Suit} {newCard.Value} ");
+            //Cards.Add(newCard);
+            //Console.WriteLine();
+        }
+
+        private int EnforceFibTradeRule(List<int> fibonacciTrade)
+        {
+            Console.Write($"{Name}, How many cards you want to trade? { String.Join(" ", fibonacciTrade) }: ");
+            var tradeNumber = Convert.ToInt32(Console.ReadLine());
+
+            while (!fibonacciTrade.Contains(tradeNumber))
+            {
+                Console.Write($"Enter a Number from this list: { String.Join(" ", fibonacciTrade) }: ");
+                tradeNumber = Convert.ToInt32(Console.ReadLine());
+            }
+            return tradeNumber;
         }
 
         public void AddMatchingCardsBonus()
