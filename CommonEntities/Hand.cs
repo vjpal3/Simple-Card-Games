@@ -50,26 +50,39 @@ namespace CommonEntities
         {
             DisplayHand();
             var tradeNumber = EnforceFibTradeRule(fibonacciTrade);
+            string[] input = new string[tradeNumber];
 
-            //Console.Write("Type Card Value and Suit separated by space (like - heart 3:  ");
-            //var tradedInput = Console.ReadLine().Split(' ');
-            //var tradedCard = Cards.Find(card => card.Value == tradedInput[1] && card.Suit == tradedInput[0]);
-            //Cards.Remove(tradedCard);
-            //var newCard = DrawCardFromDeck(rand, deck);
-            //Console.WriteLine($"You are recieving new Card: {newCard.Suit} {newCard.Value} ");
-            //Cards.Add(newCard);
-            //Console.WriteLine();
+            for(var i = 0; i < tradeNumber; i++)
+            {
+                Console.Write("Type Card Value and Suit separated by space (like - heart 3):  ");
+                input[i] = Console.ReadLine();
+            }
+
+            Console.WriteLine("You will be recieving following Cards: ");
+
+            foreach (var item in input)
+            {
+                var tradedInput = item.Split(' ');
+                var tradedCard = Cards.Find(card => card.Value == tradedInput[1] && card.Suit == tradedInput[0]);
+                Cards.Remove(tradedCard);
+                var newCard = DrawCardFromDeck(rand, deck);
+                Console.Write($"{newCard.Suit} {newCard.Value} ");
+                Cards.Add(newCard);
+                
+            }
+            Console.WriteLine();
         }
 
         private int EnforceFibTradeRule(List<int> fibonacciTrade)
         {
             Console.Write($"{Name}, How many cards you want to trade? { String.Join(" ", fibonacciTrade) }: ");
-            var tradeNumber = Convert.ToInt32(Console.ReadLine());
+            int result;
+            var tradeNumber = int.TryParse(Console.ReadLine(), out result) ? result : 0;
 
             while (!fibonacciTrade.Contains(tradeNumber))
             {
                 Console.Write($"Enter a Number from this list: { String.Join(" ", fibonacciTrade) }: ");
-                tradeNumber = Convert.ToInt32(Console.ReadLine());
+                tradeNumber = int.TryParse(Console.ReadLine(), out result) ? result : 0;
             }
             return tradeNumber;
         }
