@@ -17,30 +17,24 @@ namespace BestHand
         {
             Random rand = new Random();
             SetupEntities(rand);
-           
-            PlayTurns(rand);
-            DisplayHands();
 
-            //RemoveCommonRoyalFamilyCards();
-            //AwardMatchingCardsBonus();
-            //AwardSequencesBonus();
-            //AwardRoyalFamilyBonus();
-            //GetFinalScore();
-            //DeclareWinner();
-        }
-
-        private void DisplayHands()
-        {
-            foreach (var hand in Hands)
+            var round = 5;
+            while (round > 0)
             {
-                hand.DisplayHand();
+                PlayTurns(rand);
+                round--;
             }
 
+            RemoveCommonRoyalFamilyCards();
+            AwardMatchingCardsBonus();
+            AwardSequencesBonus();
+            AwardRoyalFamilyBonus();
+            GetFinalScore();
+            DeclareWinner();
         }
 
         private void PlayTurns(Random rand)
         {
-            
             foreach (var hand in Hands)
             {
                 hand.ExchangeCards(rand, Deck, fibonacciTrade);
