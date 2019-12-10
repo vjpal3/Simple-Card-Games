@@ -60,6 +60,15 @@ namespace CommonEntities
                 input = GetCards(tradeNumber, input);
             }
 
+            if(tradeNumber > 2 && HandHasFaceCard())
+            {
+                while (!TradeHasFaceCard(input))
+                {
+                    PrintErrorMsg("You must trade a Face Card!");
+                    input = GetCards(tradeNumber, input);
+                }
+            }
+
             Console.WriteLine("You will be recieving following Cards: ");
 
             foreach (var item in input)
@@ -70,10 +79,21 @@ namespace CommonEntities
                 var newCard = DrawCardFromDeck(rand, deck);
                 Console.Write($"{newCard.Suit} {newCard.Value} ");
                 Cards.Add(newCard);
-
             }
             Console.WriteLine("\n");
 
+        }
+
+        private bool HandHasFaceCard()
+        {
+            string[] faceValues = new string[] { "J", "Q", "K" };
+            return Cards.Any(card => faceValues.Contains(card.Value));
+        }
+
+        private bool TradeHasFaceCard(string[] input)
+        {
+            string[] faceValues = new string[] { "J", "Q", "K" };
+            return input.Any(item => faceValues.Contains(item.Split()[1]));
         }
 
         private void PrintErrorMsg(string errorMsg)
