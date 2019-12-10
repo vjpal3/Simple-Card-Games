@@ -56,13 +56,7 @@ namespace CommonEntities
 
             while (IsMatchingTrade(input))
             {
-                Console.WriteLine();
-                Console.BackgroundColor = ConsoleColor.DarkYellow;
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("You cannot trade same cards: ");
-                Console.ResetColor();
-                Console.WriteLine();
-                Console.ForegroundColor = Color;
+                PrintErrorMsg("You cannot trade same cards!");
                 input = GetCards(tradeNumber, input);
             }
 
@@ -80,6 +74,17 @@ namespace CommonEntities
             }
             Console.WriteLine("\n");
 
+        }
+
+        private void PrintErrorMsg(string errorMsg)
+        {
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(errorMsg);
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.ForegroundColor = Color;
         }
 
         private static string[] GetCards(int tradeNumber, string[] input)
