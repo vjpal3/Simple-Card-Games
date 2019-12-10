@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CommonEntities
 {
@@ -51,11 +52,18 @@ namespace CommonEntities
             DisplayHand();
             var tradeNumber = EnforceFibTradeRule(fibonacciTrade);
             string[] input = new string[tradeNumber];
+            input = GetCards(tradeNumber, input);
 
-            for(var i = 0; i < tradeNumber; i++)
+            while (IsMatchingTrade(input))
             {
-                Console.Write("Type Card Value and Suit separated by space (like - heart 3):  ");
-                input[i] = Console.ReadLine();
+                Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("You cannot trade same cards: ");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.ForegroundColor = Color;
+                input = GetCards(tradeNumber, input);
             }
 
             Console.WriteLine("You will be recieving following Cards: ");
@@ -68,9 +76,25 @@ namespace CommonEntities
                 var newCard = DrawCardFromDeck(rand, deck);
                 Console.Write($"{newCard.Suit} {newCard.Value} ");
                 Cards.Add(newCard);
-                
+
             }
-            Console.WriteLine();
+            Console.WriteLine("\n");
+
+        }
+
+        private static string[] GetCards(int tradeNumber, string[] input)
+        {
+            for (var i = 0; i < tradeNumber; i++)
+            {
+                Console.Write("Type Card Value and Suit separated by a space (like - heart 3):  ");
+                input[i] = Console.ReadLine();
+            }
+            return input;
+        }
+
+        private bool IsMatchingTrade(string[] input)
+        {
+            return input.GroupBy(item => item).Any(group => group.Count() > 1);
         }
 
         private int EnforceFibTradeRule(List<int> fibonacciTrade)
